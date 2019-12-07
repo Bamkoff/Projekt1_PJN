@@ -19,7 +19,7 @@ def evaluate(r_m, g_m):
         else: error_sum += float(g_m[i]) - float(r_m[i])
     return error_sum/float(len(r_m))
 
-with open("data/wabbit_testing_set") as file:
+with open("data/wabbit_sets/wabbit_testing_set") as file:
     for line in file:
         text = re.search(r'^([0-9]+)( *|-*)([^0-9].*)', line.replace('\n', ''))
         right_marks.append(int(text.group(1)))

@@ -1,6 +1,7 @@
 # distributes reviews for AI learning and testing
 
-import re, os
+import re
+import os
 
 # get number of lines from file data/reviews
 number_of_lines = int(os.popen("wc -l < data/reviews").read())
@@ -21,23 +22,24 @@ with open("data/reviews", "r") as reviews:
     line_nr = 1
 
     # file with learning set
-    l_s = open("data/learning_set", "a")
+    l_s = open("data/sets/learning_set", "a")
 
     # file with test set
-    t_s = open("data/testing_set", "a")
+    t_s = open("data/sets/testing_set", "a")
 
     # file with production set
-    p_s = open("data/production_set", "a")
+    p_s = open("data/sets/production_set", "a")
 
     for line in reviews:
         text = re.search(r'^([0-9]+)( *|-*)([^0-9].*)', line.replace('\n', ''))
-        if line_nr <= learning_set:
-            l_s.write(text.group(1) + " " + text.group(3) + "\n")
-        elif line_nr <= testing_set:
-            t_s.write(text.group(1) + " " + text.group(3) + "\n")
-        else:
-            p_s.write(text.group(1) + " " + text.group(3) + "\n")
-        line_nr += 1
+        if text is not None:
+            if line_nr <= learning_set:
+                l_s.write(text.group(1) + " " + text.group(3) + "\n")
+            elif line_nr <= testing_set:
+                t_s.write(text.group(1) + " " + text.group(3) + "\n")
+            else:
+                p_s.write(text.group(1) + " " + text.group(3) + "\n")
+            line_nr += 1
 
     l_s.close()
     t_s.close()
